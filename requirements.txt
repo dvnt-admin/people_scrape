@@ -1,0 +1,7 @@
+undetected-chromedriver
+selectorlib
+os
+json
+csv
+logging
+tqdm
