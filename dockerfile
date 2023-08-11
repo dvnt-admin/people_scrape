@@ -4,7 +4,6 @@ EXPOSE 5900
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./app /app
-COPY ./scripts /scripts
 
 RUN apt-get update && apt-get install -y \
     xvfb \
