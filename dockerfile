@@ -2,8 +2,13 @@ FROM ubuntu:latest
 
 EXPOSE 5900
 
-COPY ./requirements.txt /tmp/requirements.txt
+mkdir app
+mkdir scripts
 COPY ./app /app
+COPY ./scripts /scripts
+COPY ./requirements.txt /tmp/requirements.txt
+COPY
+
 
 RUN apt-get update && apt-get install -y \
     xvfb \
