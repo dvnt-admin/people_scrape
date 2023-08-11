@@ -10,10 +10,10 @@ from concurrent.futures import ThreadPoolExecutor
 
 def setup_directories_and_files():
     # Define the directories and files
-    config_dir = './project/config'
-    urls_dir = './project/urls'
-    templates_dir = './project/templates'
-    results_dir = './project/results'
+    config_dir = './data/config'
+    urls_dir = './data/urls'
+    templates_dir = './data/templates'
+    results_dir = './data/results'
     uc_settings_file = os.path.join(config_dir, 'uc_settings.txt')
     script_settings_file = os.path.join(config_dir, 'script_settings.txt')
     urls_list_file = os.path.join(urls_dir, 'urls_list.txt')
@@ -32,12 +32,6 @@ config_dir, urls_dir, templates_dir, results_dir, uc_settings_file, script_setti
 
 # Set up logging
 logging.basicConfig(filename='scraping.log', level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
-console = logging.StreamHandler()
-console.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s %(levelname)s:%(message)s')
-console.setFormatter(formatter)
-logging.getLogger('').addHandler(console)
-
 error_logger = logging.getLogger('error_logger')
 error_handler = logging.FileHandler('errors.log')
 error_formatter = logging.Formatter('%(asctime)s %(levelname)s:%(message)s')
@@ -112,9 +106,9 @@ def scrape_data(driver, e, url):
     driver.quit()
     return data
 
-def save_data(data, domain):
-    # Save the extracted data to {domain}_results.txt
-    with open(os.path.join(results_dir, f'{domain}_results.txt'), 'a') as file:
+def save_data(data):
+    # Save the extracted data to results.txt
+    with open('results.txt', 'a') as file:
         file.write(json.dumps(data) + '\n')
 
 def scrape_url(url):
@@ -124,9 +118,11 @@ def scrape_url(url):
     e = load_template(domain)
     if e is not None:
         try:
+            # Add your code here
+            # Add your code here
             data = scrape_data(driver, e, url)
             if data is not None:
-                save_data(data, domain)
+                save_data(data)
                 logging.info(f'Successfully scraped URL: {url}')
                 return data
         except Exception as e:
@@ -167,3 +163,4 @@ for url in urls_list:
         error_logger.error("Error: script_settings contains invalid values")
     except Exception as e:
         error_logger.error(f'Error occurred: {e}')
+    # Rest of the code...
